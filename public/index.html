@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lite AI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Lite AI</h1>
+            <p>Ücretsiz, Açık kaynak ve Performans! Hepsi Lite AI ile mümkün.</p>
+        </header>
+
+        <div class="notification-area">
+            <p class="notification warning">⚠️ Çeviri hatası olabilir. Önemli kararlar alırken bilgiyi doğrulayın.</p>
+            <p class="notification info">Lite AI'yı kullandığınızda <a href="eula.html" target="_blank" rel="noopener noreferrer">Son Kullanıcı Lisans Anlaşmasını</a> kabul etmiş olursunuz.</p>
+        </div>
+
+        <main class="chat-window" id="chat-window">
+            <div class="welcome-message">
+                <h2>Merhaba!</h2>
+                <p>Size nasıl yardımcı olabilirim?</p>
+            </div>
+        </main>
+
+        <form id="chat-form" class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Mesajınızı buraya yazın..." autocomplete="off">
+            <button type="submit" id="send-button">
+                Gönder
+                <span class="spinner" style="display:none;"></span>
+            </button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
