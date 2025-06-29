@@ -13,7 +13,13 @@
     <div class="container">
         <header>
             <h1>Lite AI</h1>
-            <p>Ücretsiz, Açık kaynak ve Performans! Hepsi Lite AI ile mümkün.</p>
+            <p>Lite AI, Açık kaynak performans canavarı.</p>
+            <div class="header-links">
+                <a href="https://discord.gg/Wa5edsJXtq" target="_blank" rel="noopener noreferrer" class="discord-link">
+                    <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_white_RGB.svg" alt="Discord Logo" class="discord-logo">
+                    Discord Sunucumuza Katıl
+                </a>
+            </div>
         </header>
 
         <div class="notification-area">
@@ -21,10 +27,26 @@
             <p class="notification info">Lite AI'yı kullandığınızda <a href="eula.html" target="_blank" rel="noopener noreferrer">Son Kullanıcı Lisans Anlaşmasını</a> kabul etmiş olursunuz.</p>
         </div>
 
-        <main class="chat-window" id="chat-window">
-            <div class="welcome-message">
-                <h2>Merhaba!</h2>
-                <p>Size nasıl yardımcı olabilirim?</p>
+        <div class="chat-toggle-buttons">
+            <button id="show-chat-button" class="active">Sohbet</button>
+            <button id="show-history-button">Sohbetler</button>
+        </div>
+
+        <main class="chat-main-area">
+            <div class="chat-window" id="chat-window">
+                <div class="welcome-message">
+                    <h2>Merhaba!</h2>
+                    <p>Bir soru sormaya ne dersiniz?</p>
+                </div>
+            </div>
+
+            <div class="chat-history-window" id="chat-history-window" style="display: none;">
+                <div class="history-controls">
+                    <button id="clear-history-button">Tüm Sohbetleri Sil</button>
+                </div>
+                <ul id="history-list">
+                    <li class="no-history-message">Henüz sohbet geçmişiniz yok.</li>
+                </ul>
             </div>
         </main>
 
