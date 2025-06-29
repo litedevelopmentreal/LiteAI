@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lite AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* public/mobile.css içeriği buraya gelecek */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #4f46e5; /* Indigo-600 */
+            --primary-dark-color: #4338ca; /* Indigo-700 */
+            --secondary-color: #a78bfa; /* Violet-400 */
+            --background-light: #f9fafb; /* Gray-50 */
+            --background-medium: #e5e7eb; /* Gray-200 */
+            --text-color-dark: #1f2937; /* Gray-900 */
+            --text-color-light: #f9fafb; /* Gray-50 */
+            --shadow-light: rgba(0, 0, 0, 0.05);
+            --shadow-medium: rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--text-color-dark);
+        }
+
+        .container.mobile-container {
+            width: 100vw;
+            height: 100vh;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: var(--text-color-light);
+            padding: 1rem; /* Mobil için daha az padding */
+            text-align: center;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        header h1 {
+            font-size: 1.75rem; /* Mobil için küçültülmüş başlık */
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        header p {
+            font-size: 1rem; /* Mobil için küçültülmüş metin */
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
+        }
+
+        .header-links {
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .header-links a {
+            color: var(--text-color-light);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem; /* Mobil için daha küçük font */
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: opacity 0.2s ease-in-out;
+        }
+
+        .header-links a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+
+        .discord-logo {
+            width: 20px; /* Mobil logo boyutu */
+            height: 20px;
+        }
+
+        .notification-area {
+            padding: 0.5rem 1rem; /* Mobil için daha az padding */
+            background-color: #f0f4f8;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 0.8rem; /* Mobil için daha küçük font */
+            color: #4b5563;
+            text-align: center;
+        }
+
+        .notification {
+            margin-bottom: 0.25rem;
+            padding: 0.4rem;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .notification.warning {
+            background-color: #fffbeb;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+
+        .notification.info {
+            background-color: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+
+        .notification a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .notification a:hover {
+            text-decoration: underline;
+        }
+
+        .notification:last-child {
+            margin-bottom: 0;
+        }
+
+        .chat-toggle-buttons {
+            display: flex;
+            justify-content: center;
+            padding: 0.75rem; /* Mobil için daha az padding */
+            border-bottom: 1px solid var(--background-medium);
+            background-color: #ffffff;
+            gap: 0.75rem; /* Mobil için daha az gap */
+        }
+
+        .chat-toggle-buttons button {
+            background-color: var(--background-medium);
+            color: var(--text-color-dark);
+            border: none;
+            padding: 0.6rem 1.2rem; /* Mobil için daha küçük padding */
+            border-radius: 6px;
+            font-size: 0.9rem; /* Mobil için daha küçük font */
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .chat-toggle-buttons button:hover {
+            background-color: #d1d5db;
+        }
+
+        .chat-toggle-buttons button.active {
+            background-color: var(--primary-color);
+            color: var(--text-color-light);
+        }
+
+        .chat-toggle-buttons button.active:hover {
+            background-color: var(--primary-dark-color);
+        }
+
+        .chat-main-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-window {
+            flex-grow: 1;
+            padding: 1rem; /* Mobil için daha az padding */
+            overflow-y: auto;
+            background-color: var(--background-light);
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem; /* Mobil için daha az gap */
+        }
+
+        .welcome-message {
+            text-align: center;
+            color: #6b7280;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .welcome-message h2 {
+            font-size: 1.25rem; /* Mobil için küçültülmüş */
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .welcome-message p {
+            font-size: 0.9rem; /* Mobil için küçültülmüş */
+        }
+
+        .message {
+            display: flex;
+            max-width: 85%; /* Mobil için biraz daha geniş */
+            margin-bottom: 0.4rem;
+        }
+
+        .message.user {
+            justify-content: flex-end;
+            align-self: flex-end;
+        }
+
+        .message.ai {
+            justify-content: flex-start;
+            align-self: flex-start;
+        }
+
+        .message-bubble {
+            padding: 0.8rem; /* Mobil için daha küçük padding */
+            border-radius: 8px; /* Mobil için daha küçük radius */
+            box-shadow: 0 1px 2px var(--shadow-light);
+            line-height: 1.4;
+            font-size: 0.9rem; /* Mobil için küçültülmüş font */
+        }
+
+        .message.user .message-bubble {
+            background-color: var(--primary-color);
+            color: var(--text-color-light);
+            border-bottom-right-radius: 2px;
+        }
+
+        .message.ai .message-bubble {
+            background-color: #ffffff;
+            color: var(--text-color-dark);
+            border: 1px solid var(--background-medium);
+            border-bottom-left-radius: 2px;
+        }
+
+        /* Markdown styling for AI messages (adapted for mobile) */
+        .message.ai .message-bubble p {
+            margin-bottom: 0;
+        }
+        .message.ai .message-bubble h1, .message.ai .message-bubble h2,
+        .message.ai .message-bubble h3, .message.ai .message-bubble h4 {
+            font-weight: 600;
+            margin-top: 0.8em;
+            margin-bottom: 0.4em;
+            font-size: 1.1em; /* Görece daha küçük başlıklar */
+        }
+        .message.ai .message-bubble ul, .message.ai .message-bubble ol {
+            padding-left: 1.2em;
+            margin-top: 0.4em;
+            margin-bottom: 0.4em;
+        }
+        .message.ai .message-bubble pre {
+            background-color: #e2e8f0;
+            padding: 0.6em;
+            border-radius: 4px;
+            overflow-x: auto;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-size: 0.8em;
+            margin-top: 0.4em;
+            margin-bottom: 0.4em;
+        }
+        .message.ai .message-bubble code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            background-color: #f0f4f8;
+            padding: 0.15em 0.3em;
+            border-radius: 2px;
+            font-size: 0.8em;
+        }
+
+
+        .chat-input-area {
+            display: flex;
+            padding: 1rem; /* Mobil için daha az padding */
+            border-top: 1px solid var(--background-medium);
+            background-color: #ffffff;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            gap: 0.6rem; /* Mobil için daha az gap */
+        }
+
+        #user-input {
+            flex-grow: 1;
+            padding: 0.6rem 0.8rem; /* Mobil için daha küçük padding */
+            border: 1px solid var(--background-medium);
+            border-radius: 6px; /* Mobil için daha küçük radius */
+            font-size: 0.9rem; /* Mobil için küçültülmüş font */
+            outline: none;
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        #user-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+
+        #send-button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem; /* Mobil için daha küçük padding */
+            border-radius: 6px; /* Mobil için daha küçük radius */
+            font-size: 0.9rem; /* Mobil için küçültülmüş font */
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        #send-button:hover {
+            background-color: var(--primary-dark-color);
+            transform: translateY(-1px);
+        }
+
+        #send-button:disabled {
+            background-color: #a5b4fc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 3px solid #fff;
+            width: 16px; /* Mobil için daha küçük spinner */
+            height: 16px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+        /* Sohbet Geçmişi Stilleri (Mobile için uyarlandı) */
+        .chat-history-window {
+            flex-grow: 1;
+            padding: 1rem; /* Mobil için daha az padding */
+            overflow-y: auto;
+            background-color: var(--background-light);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .history-controls {
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--background-medium);
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        #clear-history-button {
+            background-color: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        #clear-history-button:hover {
+            background-color: #dc2626;
+        }
+
+        #history-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        #history-list li {
+            background-color: #ffffff;
+            border: 1px solid var(--background-medium);
+            border-radius: 6px; /* Mobil için daha küçük radius */
+            padding: 0.8rem; /* Mobil için daha küçük padding */
+            margin-bottom: 0.6rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        #history-list li:hover {
+            background-color: #f3f4f6;
+            box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.06); /* Hafifletilmiş gölge */
+        }
+
+        #history-list li .history-content {
+            flex-grow: 1;
+            font-size: 0.85rem; /* Mobil için daha küçük font */
+            color: var(--text-color-dark);
+            max-height: 3em;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        #history-list li .history-content.expanded {
+            white-space: normal;
+            max-height: none;
+            overflow: visible;
+        }
+
+        #history-list li .history-date {
+            font-size: 0.7rem; /* Mobil için daha küçük font */
+            color: #6b7280;
+            white-space: nowrap;
+        }
+
+        #history-list .no-history-message {
+            text-align: center;
+            color: #6b7280;
+            padding: 1.5rem;
+            border: none;
+            background-color: transparent;
+            box-shadow: none;
+            cursor: default;
+        }
+
+        .delete-history-item-button {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 0.3rem 0.6rem; /* Mobil için daha küçük padding */
+            border-radius: 4px; /* Mobil için daha küçük radius */
+            font-size: 0.75rem; /* Mobil için daha küçük font */
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            flex-shrink: 0;
+        }
+
+        .delete-history-item-button:hover {
+            background-color: #b91c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mobile-container">
+        <header>
+            <h1>Lite AI (Mobil)</h1>
+            <p>Groq API ile güvenli yanıtlar</p>
+            <div class="header-links">
+                <a href="https://discord.gg/EG3JHXd3Wn" target="_blank" rel="noopener noreferrer" class="discord-link">
+                    <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_white_RGB.svg" alt="Discord Logo" class="discord-logo">
+                    Discord'a Katıl
+                </a>
+            </div>
+        </header>
+
+        <div class="notification-area">
+            <p class="notification warning">⚠️ Çeviri hatası olabilir. Önemli kararlar alırken bilgiyi doğrulayın.</p>
+            <p class="notification info">Lite AI'yı kullandığınızda <a href="eula.html" target="_blank" rel="noopener noreferrer">Son Kullanıcı Lisans Anlaşmasını</a> kabul etmiş olursunuz.</p>
+        </div>
+
+        <div class="chat-toggle-buttons">
+            <button id="show-chat-button" class="active">Sohbet</button>
+            <button id="show-history-button">Sohbetler</button>
+        </div>
+
+        <main class="chat-main-area">
+            <div class="chat-window" id="chat-window">
+                <div class="welcome-message">
+                    <h2>Merhaba!</h2>
+                    <p>Bir soru sormaya ne dersiniz?</p>
+                </div>
+            </div>
+
+            <div class="chat-history-window" id="chat-history-window" style="display: none;">
+                <div class="history-controls">
+                    <button id="clear-history-button">Tüm Sohbetleri Sil</button>
+                </div>
+                <ul id="history-list">
+                    <li class="no-history-message">Henüz sohbet geçmişiniz yok.</li>
+                </ul>
+            </div>
+        </main>
+
+        <form id="chat-form" class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Mesajınızı buraya yazın..." autocomplete="off">
+            <button type="submit" id="send-button">
+                Gönder
+                <span class="spinner" style="display:none;"></span>
+            </button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+
+    <script>
+        // public/mobile.js içeriği buraya gelecek
+        const API_BASE_PATH = '/api';
+
+        const chatWindow = document.getElementById('chat-window');
+        const chatHistoryWindow = document.getElementById('chat-history-window');
+        const chatForm = document.getElementById('chat-form');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const spinner = document.querySelector('.spinner');
+        const welcomeMessage = document.querySelector('.welcome-message');
+
+        const showChatButton = document.getElementById('show-chat-button');
+        const showHistoryButton = document.getElementById('show-history-button');
+        const clearHistoryButton = document.getElementById('clear-history-button');
+        const historyList = document.getElementById('history-list');
+
+        const md = new markdownit();
+
+        let allChats = JSON.parse(localStorage.getItem('allChats')) || [];
+        let currentChatIndex = -1;
+        let messages = [];
+
+        function renderMessages() {
+            chatWindow.innerHTML = '';
+            if (messages.length === 0) {
+                welcomeMessage.style.display = 'flex';
+            } else {
+                welcomeMessage.style.display = 'none';
+                messages.forEach(msg => {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message', msg.sender);
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('message-bubble');
+                    if (msg.sender === 'ai') {
+                        bubble.innerHTML = md.render(msg.text);
+                    } else {
+                        bubble.textContent = msg.text;
+                    }
+                    messageElement.appendChild(bubble);
+                    chatWindow.appendChild(messageElement);
+                });
+            }
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+
+        function saveCurrentChat() {
+            if (messages.length === 0) return;
+            if (currentChatIndex === -1) {
+                allChats.push({
+                    id: Date.now(),
+                    date: new Date().toISOString(),
+                    messages: messages,
+                    firstMessagePreview: messages[0] ? messages[0].text.substring(0, 100) + (messages[0].text.length > 100 ? '...' : '') : 'Boş Sohbet'
+                });
+                currentChatIndex = allChats.length - 1;
+            } else {
+                allChats[currentChatIndex].messages = messages;
+                allChats[currentChatIndex].firstMessagePreview = messages[0] ? messages[0].text.substring(0, 100) + (messages[0].text.length > 100 ? '...' : '') : 'Boş Sohbet';
+            }
+            localStorage.setItem('allChats', JSON.stringify(allChats));
+            renderHistoryList();
+        }
+
+        function renderHistoryList() {
+            historyList.innerHTML = '';
+            if (allChats.length === 0) {
+                const noHistoryLi = document.createElement('li');
+                noHistoryLi.classList.add('no-history-message');
+                noHistoryLi.textContent = 'Henüz sohbet geçmişiniz yok.';
+                historyList.appendChild(noHistoryLi);
+                return;
+            }
+            const sortedChats = [...allChats].sort((a, b) => new Date(b.date) - new Date(a.date));
+            sortedChats.forEach((chat) => {
+                const listItem = document.createElement('li');
+                listItem.dataset.chatId = chat.id;
+                const chatContentDiv = document.createElement('div');
+                chatContentDiv.classList.add('history-content');
+                chatContentDiv.textContent = chat.firstMessagePreview;
+                const chatDateSpan = document.createElement('span');
+                chatDateSpan.classList.add('history-date');
+                chatDateSpan.textContent = new Date(chat.date).toLocaleDateString('tr-TR', {
+                    year: 'numeric', month: 'numeric', day: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Sil';
+                deleteButton.classList.add('delete-history-item-button');
+                deleteButton.onclick = (e) => {
+                    e.stopPropagation();
+                    deleteSingleChat(chat.id);
+                };
+                listItem.appendChild(chatContentDiv);
+                listItem.appendChild(chatDateSpan);
+                listItem.appendChild(deleteButton);
+                historyList.appendChild(listItem);
+                listItem.addEventListener('click', () => loadChat(chat.id));
+            });
+        }
+
+        function deleteSingleChat(chatId) {
+            if (!confirm('Bu sohbeti silmek istediğinizden emin misiniz?')) {
+                return;
+            }
+            const initialChatCount = allChats.length;
+            allChats = allChats.filter(chat => chat.id !== chatId);
+            if (allChats.length < initialChatCount) {
+                localStorage.setItem('allChats', JSON.stringify(allChats));
+                renderHistoryList();
+                if (currentChatIndex !== -1 && !allChats[currentChatIndex] || (allChats[currentChatIndex] && allChats[currentChatIndex].id === chatId)) {
+                    startNewChat();
+                } else if (allChats.length > 0) {
+                    if (currentChatIndex >= allChats.length) {
+                        currentChatIndex = allChats.length - 1;
+                    }
+                    if (currentChatIndex !== -1) {
+                         messages = allChats[currentChatIndex].messages;
+                         renderMessages();
+                    } else {
+                         startNewChat();
+                    }
+                } else {
+                    startNewChat(); 
+                }
+            }
+        }
+
+        function loadChat(chatId) {
+            const chatToLoad = allChats.find(chat => chat.id === chatId);
+            if (chatToLoad) {
+                currentChatIndex = allChats.indexOf(chatToLoad);
+                messages = chatToLoad.messages;
+                renderMessages();
+                showChatView();
+            }
+        }
+
+        function startNewChat() {
+            currentChatIndex = -1;
+            messages = [];
+            userInput.value = '';
+            renderMessages();
+            showChatView();
+        }
+
+        async function sendMessage(event) {
+            event.preventDefault();
+            const userMessage = userInput.value.trim();
+            if (!userMessage) return;
+
+            if (currentChatIndex === -1 && messages.length === 0) {
+                messages.push({ sender: 'user', text: userMessage });
+                saveCurrentChat();
+            } else {
+                messages.push({ sender: 'user', text: userMessage });
+                saveCurrentChat();
+            }
+            
+            renderMessages();
+            userInput.value = '';
+
+            sendButton.disabled = true;
+            spinner.style.display = 'inline-block';
+            sendButton.textContent = '';
+            sendButton.appendChild(spinner);
+
+            try {
+                const response = await fetch(`${API_BASE_PATH}/chat`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ message: userMessage }),
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(`Backend hatası: ${response.status} - ${errorData.error || 'Bilinmeyen hata'}`);
+                }
+
+                const data = await response.json();
+                const aiResponse = data.choices[0]?.message?.content || "Üzgünüm, bir yanıt alamadım.";
+
+                messages.push({ sender: 'ai', text: aiResponse });
+                saveCurrentChat();
+                renderMessages();
+
+            } catch (error) {
+                console.error('API çağrısında hata:', error);
+                messages.push({ sender: 'ai', text: 'Üzgünüm, bir hata oluştu. Lütfen tekrar deneyin.' });
+                saveCurrentChat();
+                renderMessages();
+            } finally {
+                sendButton.disabled = false;
+                spinner.style.display = 'none';
+                sendButton.textContent = 'Gönder';
+            }
+        }
+
+        function showChatView() {
+            chatWindow.style.display = 'flex';
+            chatForm.style.display = 'flex';
+            chatHistoryWindow.style.display = 'none';
+            showChatButton.classList.add('active');
+            showHistoryButton.classList.remove('active');
+            userInput.focus();
+        }
+
+        function showHistoryView() {
+            chatWindow.style.display = 'none';
+            chatForm.style.display = 'none';
+            chatHistoryWindow.style.display = 'flex';
+            showChatButton.classList.remove('active');
+            showHistoryButton.classList.add('active');
+            renderHistoryList();
+        }
+
+        function clearAllChats() {
+            if (confirm('Tüm sohbet geçmişinizi silmek istediğinizden emin misiniz? Bu işlem geri alınamaz.')) {
+                localStorage.removeItem('allChats');
+                allChats = [];
+                startNewChat();
+                renderHistoryList();
+                alert('Tüm sohbet geçmişi başarıyla silindi.');
+            }
+        }
+
+        chatForm.addEventListener('submit', sendMessage);
+        showChatButton.addEventListener('click', startNewChat);
+        showHistoryButton.addEventListener('click', showHistoryView);
+        clearHistoryButton.addEventListener('click', clearAllChats);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (allChats.length > 0) {
+                currentChatIndex = allChats.length - 1;
+                messages = allChats[currentChatIndex].messages;
+            } else {
+                currentChatIndex = -1;
+                messages = [];
+            }
+            renderMessages();
+            renderHistoryList();
+        });
+    </script>
+</body>
+</html>
