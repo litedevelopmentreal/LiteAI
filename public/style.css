@@ -1,4 +1,4 @@
-/* public/style.css (Öncekiyle aynı) */
+/* public/style.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
 
 :root {
@@ -55,7 +55,39 @@ header h1 {
 header p {
     font-size: 1.125rem; /* text-lg */
     opacity: 0.9;
+    margin-bottom: 0.75rem; /* Discord linki için boşluk */
 }
+
+/* Yeni: Header içindeki bağlantılar için stil */
+.header-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap; /* Küçük ekranlarda alta geçebilir */
+}
+
+.header-links a {
+    color: var(--text-color-light);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.header-links a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+.discord-logo {
+    width: 24px; /* Logo boyutu */
+    height: 24px;
+}
+
 
 .chat-window {
     flex-grow: 1;
@@ -285,4 +317,153 @@ header p {
 /* Son notification'ın alt boşluğunu kaldır */
 .notification:last-child {
     margin-bottom: 0;
+}
+
+/* Yeni Sohbet Geçmişi Stilleri */
+.chat-toggle-buttons {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--background-medium);
+    background-color: #ffffff;
+    gap: 1rem;
+}
+
+.chat-toggle-buttons button {
+    background-color: var(--background-medium);
+    color: var(--text-color-dark);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.chat-toggle-buttons button:hover {
+    background-color: #d1d5db; /* Gray-300 */
+}
+
+.chat-toggle-buttons button.active {
+    background-color: var(--primary-color);
+    color: var(--text-color-light);
+}
+
+.chat-toggle-buttons button.active:hover {
+    background-color: var(--primary-dark-color);
+}
+
+.chat-main-area {
+    flex-grow: 1;
+    display: flex; /* İçindeki sohbet ve geçmiş pencerelerini yönetmek için */
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-history-window {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background-color: var(--background-light);
+    display: flex; /* Geçmişi yönetmek için */
+    flex-direction: column;
+}
+
+.history-controls {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--background-medium);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+#clear-history-button {
+    background-color: #ef4444; /* Red-500 */
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+#clear-history-button:hover {
+    background-color: #dc2626; /* Red-600 */
+}
+
+#history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+#history-list li {
+    background-color: #ffffff;
+    border: 1px solid var(--background-medium);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+#history-list li:hover {
+    background-color: #f3f4f6; /* Gray-100 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+#history-list li .history-content {
+    flex-grow: 1;
+    font-size: 0.95rem;
+    color: var(--text-color-dark);
+    max-height: 3em; /* Maksimum 3 satır göster */
+    overflow: hidden;
+    text-overflow: ellipsis; /* ... ile devamını göster */
+    white-space: nowrap; /* Tek satırda tut */
+}
+/* Satır sonlarını koruyarak daha fazla göster */
+#history-list li .history-content.expanded {
+    white-space: normal;
+    max-height: none;
+    overflow: visible;
+}
+
+
+#history-list li .history-date {
+    font-size: 0.8rem;
+    color: #6b7280; /* Gray-500 */
+    white-space: nowrap; /* Tarihin bölünmemesi için */
+}
+
+#history-list .no-history-message {
+    text-align: center;
+    color: #6b7280;
+    padding: 2rem;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    cursor: default;
+}
+
+.delete-history-item-button {
+    background-color: #dc2626; /* Kırmızı */
+    color: white;
+    border: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    flex-shrink: 0; /* Butonun küçülmesini engeller */
+}
+
+.delete-history-item-button:hover {
+    background-color: #b91c1c; /* Koyu kırmızı */
 }
